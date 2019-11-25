@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/peminjaman', 'HomeController@peminjaman')->name('peminjaman');
+Route::get('/pinjam', 'BorrowController@index')->name('pinjam');
+Route::post('/pinjam', 'BorrowController@create')->name('pinjam');
+Route::post('/pengembalian', 'BorrowController@destroy')->name('pinjam');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
