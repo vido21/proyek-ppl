@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Books;
+use App\Items;
 use App\Borrow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,38 +19,38 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     * @param  \App\Books  $books
+     * @param  \App\Items  $items
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Books $books)
+    public function index(Items $items)
     {
-        return view('home',['books'=>$books->first()->get()]);
+        return view('home',['items'=>$items->first()->get()]);
     }
 
        /**
      * Display a listing of the resource.
-     *@param  \App\Borrow  $borrows
+     *@param  \App\Chart  $chart
      * @return \Illuminate\Http\Response
      */
-    public function peminjaman()
+    public function keranjang()
     {   
         try {
-            $borrows =DB::table('borrows')
-                ->join('books', 'books.id', '=', 'borrows.book_id')
-                ->select('borrows.id as id','books.id as book_id','books.title as title','books.description as description','borrows.expired as expired')
+            $chart =DB::table('chart')
+                ->join('items', 'items.id', '=', 'chart.item_id')
+                ->select('chart.id as id','items.id as item_id','items.title as title','items.description as description','chart.number_of_items as number_of_items')
                 ->first();
-            if ($borrows===null){
-                return view('peminjaman',['borrows'=>0]);
+            if ($chart===null){
+                return view('listChart',['chart'=>0]);
             }
 
-            $borrows =DB::table('borrows')
-                ->join('books', 'books.id', '=', 'borrows.book_id')
-                ->select('borrows.id as id','books.id as book_id','books.title as title','books.description as description','borrows.expired as expired')
+            $chart =DB::table('chart')
+                ->join('items', 'items.id', '=', 'chart.item_id')
+                ->select('chart.id as id','items.id as item_id','items.price as price','items.title as title','items.description as description','chart.number_of_items as number_of_items')
                 ->where('user_id','=',Auth::id())
                 ->get();
-            return view('peminjaman',['borrows'=>$borrows]);
+            return view('listChart',['chart'=>$chart]);
         } catch (Exception $e) {
-            return view('peminjaman',['borrows'=>0]);
+            return view('listChart',['chart'=>0]);
         }
             
     } 

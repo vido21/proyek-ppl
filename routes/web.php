@@ -13,10 +13,10 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/peminjaman', 'HomeController@peminjaman')->name('peminjaman');
-Route::get('/pinjam', 'BorrowController@index')->name('pinjam');
-Route::post('/pinjam', 'BorrowController@create')->name('pinjam');
-Route::post('/pengembalian', 'BorrowController@destroy')->name('pinjam');
+Route::get('/keranjang', 'HomeController@keranjang')->name('keranjang');
+Route::get('/chart', 'ChartController@index')->name('chart');
+Route::post('/chart', 'ChartController@create')->name('addToChart');
+Route::post('/pengembalian', 'ChartController@destroy')->name('pinjam');
 
 Auth::routes();
 

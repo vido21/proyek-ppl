@@ -2,46 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Borrow;
-use App\Books;
+use App\Chart;
+use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
 
-class BorrowController extends Controller
+class ChartController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *@param  \App\Borrow  $borrows
-     *@param  \App\Books  $books
+     *@param  \App\Chart  $chart
+     *@param  \App\Items  $items
      *@param Illuminate\Http\Request $request;
      * @return \Illuminate\Http\Response
      */
-    public function index(Books $books,Request $request)
+    public function index(Items $items,Request $request)
     {
         if (!Auth::check()){return Redirect::intended("/login"); }
-        return view('pinjam',['book'=>$books->where('id','=',$request->id)->first()]);        
+        return view('chart',['item'=>$items->where('id','=',$request->id)->first()]);        
     }   
 
     /**
      * Show the form for creating a new resource.
      *@param Illuminate\Http\Request $request;
      * @return \Illuminate\Http\Response
-     *@param  \App\Borrow  $borrows
-     *@param  \App\Books  $books
+     *@param  \App\Chart  $chart
+     *@param  \App\Items  $items
      */
-    public function create(Borrow $borrow,Books $books,Request $request)
+    public function create(Chart $chart,Items $items,Request $request)
     {   
         if (!Auth::check()){
             return Redirect::intended("/login"); 
         }
         
-        if($borrow->where('book_id','=',$request->book_id)->first()===null){
+        if($chart->where('item_id','=',$request->item_id)->first()===null){
     
-            $borrow->insert(
+            $chart->insert(
                 ['user_id' => Auth::user()->id,
-                 'book_id' => $request->book_id,
-                 'expired' => $request->date
+                 'item_id' => $request->item_id,
+                 'number_of_items' => $request->number_of_items
                 ]
             );
             return redirect()->back()->with('success', ['success']); 
@@ -100,18 +100,18 @@ class BorrowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Borrow  $borrow
+     * @param  \App\Chart  $chart
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Borrow $borrow,Request $request)
+    public function destroy(Chart $chart,Request $request)
     {
         if (!Auth::check()){
             return Redirect::intended("/login"); 
         }
         
-        $id=$borrow->where('user_id','=',Auth::id())->where('book_id','=',$request->book_id)->first()->id;
-        $borrow = $borrow->find($id)->delete();
+        $id=$chart->where('user_id','=',Auth::id())->where('item_id','=',$request->item_id)->first()->id;
+        $chart = $chart->find($id)->delete();
         return redirect()->back();
     }
 }

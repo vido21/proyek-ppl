@@ -34,8 +34,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                    <a class="navbar-brand" href="{{ url('/peminjaman') }}">
-                    Peminjaman
+                    <a class="navbar-brand" href="{{ url('/keranjang') }}">
+                    Keranjang
                     </a>
                     </ul>
                 @endif
