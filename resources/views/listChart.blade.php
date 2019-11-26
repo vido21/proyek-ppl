@@ -22,7 +22,7 @@
                     </div>
                     @endforeach
                 @else
-                    <p align="center" >Tidak ada buku yang dipinjam</p>
+                    <p align="center" >Keranjang belanja kososng</p>
                 @endif
 
             </div>
