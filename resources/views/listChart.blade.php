@@ -19,7 +19,6 @@
                         <p> Harga   : {{$item->price}} $</p>
                         Jumlah : <input type="number" name='number_of_items[$inc]' value="{{$item->number_of_items}}">
                     </div>
-                    $inc+=1
                     @endforeach
                 @else
                     <p align="center" >Keranjang belanja kososng</p>
