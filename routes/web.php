@@ -16,7 +16,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/keranjang', 'HomeController@keranjang')->name('keranjang');
 Route::get('/chart', 'ChartController@index')->name('chart');
 Route::post('/chart', 'ChartController@create')->name('addToChart');
-Route::post('/pengembalian', 'ChartController@destroy')->name('pinjam');
+Route::get('/checkout', 'OrderController@index')->name('checkout');
+Route::post('/checkout', 'OrderController@create')->name('bayar');
 
 Auth::routes();
 

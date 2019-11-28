@@ -26,9 +26,13 @@
                     <h3 >{{$item->title}}</h3>
                     <img src="https://www.mcgill.ca/oss/files/oss/styles/hd/public/fish.png?itok=Ty_baHwK&timestamp=1538677144" alt="Smiley face" align="left" style="height: 150px;  width: 150px;padding-right:10px" >
                     <p>{{$item->description}}</p>
-                    <p>Harga     : {{$item->price}}</p>
+                    <p>Harga     : {{$item->price}} $</p>
                     <p>Sisa stok : {{$item->stock}}</p>
-                    Jumlah : <input type="number" name='number_of_items' value="{{$item->number_of_items}}">
+                    @if($item->number_of_items!=Null) 
+                        Jumlah : <input type="number" name='number_of_items' value="{{$item->number_of_items}}">
+                    @else
+                        Jumlah : <input type="number" name='number_of_items' value="1">
+                    @endif
                     <br>
                     <input type="hidden" name='item_id' value="{{$item->id}}">
                     <br>
