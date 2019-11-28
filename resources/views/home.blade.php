@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Barang yang tersedia !!!!!!!</div>
+                <div class="card-header">Barang yang tersedia</div>
 
                 @foreach ($items as $item) 
                 <div class="card-body">
