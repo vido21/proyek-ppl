@@ -20,10 +20,10 @@
                         Jumlah : <input type="number" name='number_of_items[$inc]' value="{{$item->number_of_items}}">
                     </div>
                     @endforeach
+                    <input type="submit" class="btn btn-warning" value="Checkout" style="background-color:yellow;margin-left:auto;margin-right:auto;display:block;margin-top:10px;margin-bottom:10px">
                 @else
                     <p align="center" >Keranjang belanja kososng</p>
                 @endif
-                    <input type="submit" class="btn btn-warning" value="Checkout" style="background-color:yellow;margin-left:auto;margin-right:auto;display:block;margin-top:10px;margin-bottom:10px">
                 </form>
 
             </div>

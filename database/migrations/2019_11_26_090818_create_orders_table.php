@@ -15,9 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInt('user_id');
-            $table->bigInt('order_detail_id');
-            $table->bigInt('status');
+            $table->bigInteger('user_id');
+            $table->bigInteger('order_detail_id');
+            $table->bigInteger('status');
             #0 = to Pay 1=to ship  2=to receive 3=completed 4=cancelled 5=return refund 
             $table->timestamps();
         });
