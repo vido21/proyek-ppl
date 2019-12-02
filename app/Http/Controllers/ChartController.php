@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chart;
+use App\User;
 use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,12 +13,13 @@ class ChartController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *@param  \App\User  $user 
      *@param  \App\Chart  $chart
      *@param  \App\Items  $items
      *@param Illuminate\Http\Request $request;
      * @return \Illuminate\Http\Response
      */
-    public function index(Items $items,Request $request)
+    public function index(Items $items,Request $request,User $user)
     {
         if (!Auth::check()){return Redirect::intended("/login"); }
         return view('chart',['item'=>$items->where('id','=',$request->id)->first()]);        
@@ -29,27 +31,35 @@ class ChartController extends Controller
      * @return \Illuminate\Http\Response
      *@param  \App\Chart  $chart
      *@param  \App\Items  $items
+     *@param  \App\User  $user
      */
-    public function create(Chart $chart,Items $items,Request $request)
+    public function create(Chart $chart,Items $items,Request $request,User $user)
     {   
         if (!Auth::check()){
             return Redirect::intended("/login"); 
         }
         
-        if($chart->where('item_id','=',$request->item_id)->first()===null){
+        // if($chart->where('item_id','=',$request->item_id)->first()===null){
     
-            $chart->insert(
-                ['user_id' => Auth::user()->id,
-                 'item_id' => $request->item_id,
-                 'number_of_items' => $request->number_of_items
-                ]
-            );
-            return redirect()->back()->with('success', ['success']); 
+            // $chart->insert(
+            //     ['user_id' => Auth::user()->id,
+            //      'item_id' => $request->item_id,
+            //      'number_of_items' => $request->number_of_items
+            //     ]
+            // );
+        $stok=$items->where('id','=',$request->item_id)->first()->stock;
+        $newstok=(int)$stok-(int)$request->number_of_items;
+        $items->where('id',$request->item_id)->update(['stock'=>$newstok] );
+
+        $itemPrice=(int)$stok*(int)$request->number_of_items;
+        $newBalance=(int)Auth::user()->balance-(int)$itemPrice;
+        $user->where('id',Auth::user()->id)->update(['balance'=>$newBalance] );
+        return redirect()->back()->with('success', ['success']); 
     
-        }
-        else{
-            return redirect()->back()->with('error', ['error']); 
-        }
+        // }
+        // else{
+        //     return redirect()->back()->with('error', ['error']); 
+        // }
     }
 
     /**

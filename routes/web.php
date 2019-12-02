@@ -14,8 +14,8 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/keranjang', 'HomeController@keranjang')->name('keranjang');
-Route::get('/chart', 'ChartController@index')->name('chart');
-Route::post('/chart', 'ChartController@create')->name('addToChart');
+Route::get('/buy', 'ChartController@index')->name('chart');
+Route::post('/buy', 'ChartController@create')->name('addToChart');
 Route::get('/checkout', 'OrderController@index')->name('checkout');
 Route::post('/checkout', 'OrderController@create')->name('bayar');
 
